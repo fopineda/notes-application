@@ -1,7 +1,11 @@
 console.log('Starting notes.js');
 const fs = require('fs');
 
-// fetcges all elements in notes-data.json and parses them back to object, or return empty array
+/*
+--- Utility Functions
+*/
+
+// fetches all elements in notes-data.json and parses them back to object, or return empty array
 var fetchNotes = () => {
     try {
         var notesString = fs.readFileSync('notes-data.json');
@@ -16,22 +20,21 @@ var saveNotes = (notes) => { fs.writeFileSync('notes-data.json', JSON.stringify(
 
 
 
-
+/*
+--- Export Functions
+*/
 var addNote = (title, body) => {
     var notes = fetchNotes(); // array of objects
     var note = {
         title: title,
         body: body
     };
-
     var duplicateNotes = notes.filter((note) => note.title === title); // reset to zero everytime it's called
-
     if (duplicateNotes.length === 0){
         notes.push(note);
         saveNotes(notes);
         return note;
-    }
-     
+    }   
 };
 
 var getAll = () => {
@@ -42,8 +45,14 @@ var getNote = (title) => {
     console.log(title);
 }
 
-var removeNote = () => {
-    console.log(title);
+var removeNote = (title) => {
+    // fetch notes
+    var notes = fetchNotes(); // array of objects
+    // filter notes, meaning creating a new list of notes without the note we are removing
+    var newNotes = notes.filter((note) => note.title !== title); // reset to zero everytime it's called
+    // save new notes array
+    saveNotes(newNotes);
+    return notes.length !== newNotes.length;
 }
 
 module.exports = {
