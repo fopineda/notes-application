@@ -9,7 +9,7 @@ const yargs = require("yargs");
 const argv = yargs.argv;
 var command = process.argv[2];
 console.log("Command: " + command);
-console.log("yargs: "+ argv);
+console.log("yargs: "+ argv.body); // Ex: argv.title
 
 
 if (command === 'add'){
