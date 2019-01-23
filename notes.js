@@ -22,6 +22,7 @@ var saveNotes = (notes) => { fs.writeFileSync('notes-data.json', JSON.stringify(
 
 /*
 --- Export Functions
+        Note: ___.filter(..) returns an array
 */
 var addNote = (title, body) => {
     var notes = fetchNotes(); // array of objects
@@ -42,7 +43,9 @@ var getAll = () => {
 }
 
 var getNote = (title) => {
-    console.log(title);
+    var notes = fetchNotes();
+    var singleNote = notes.filter((note) => note.title === title);
+    return singleNote[0]; // either return the first item or undefined
 }
 
 var removeNote = (title) => {

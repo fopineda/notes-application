@@ -14,28 +14,20 @@ console.log("Command: " + command + "\n");
 
 if (command === 'add'){
     var note = notes.addNote(argv.title, argv.body);
-    if (note === undefined){
-        console.log("Note already exists!");
-    }
-    else {
-        console.log('Note successfully added!');
-        console.log('-------------------------');
-        console.log(`Title: ${note.title}`);
-        console.log(`Title: ${note.body}`);
-        console.log('-------------------------');
-    }
+    var message = (note === undefined) ? "Note already exists" : `Note successfully added\n--------------\nTitle: ${note.title}\nBody: ${note.body}\n--------------`
+    console.log(message);
 } else if (command  === "list"){
     notes.getAll();
 } else if (command  === "read"){
-    notes.getNote(argv.title);
+    var note = notes.getNote(argv.title);
+    var message = (note === undefined) ? "Note not found" : `Note title: ${note.title}, Note body: ${note.body}`;
+    console.log(message);
+
 } else if (command  === "remove"){
-    var NoteRemoved = notes.removeNote(argv.title);
-    if (NoteRemoved){
-        console.log("Note was removed!");
-    }
-    else{
-        console.log("Note not found!");
-    }
+    var noteRemoved = notes.removeNote(argv.title);
+    var message  = (noteRemoved) ? "Note was removed" : "Note not found";
+    console.log(message);
+
 } else{
     console.log("command not recognized")
 }
