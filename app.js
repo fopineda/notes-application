@@ -17,10 +17,10 @@ if (command === 'add'){
     var message = (note === undefined) ? "Note already exists" : `Note successfully added\n--------------\nTitle: ${note.title}\nBody: ${note.body}\n--------------`
     console.log(message);
 } else if (command  === "list"){
-    notes.getAll();
-    
-
-
+    var allNotes = notes.getAll();
+    allNotes.forEach(note => {
+        console.log(`Title: ${note.title}, Body: ${note.body}`);
+    });
 } else if (command  === "read"){
     var note = notes.getNote(argv.title);
     var message = (note === undefined) ? "Note not found" : `Note title: ${note.title}, Note body: ${note.body}`;
